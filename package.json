@@ -1,7 +1,33 @@
 {
 	"name": "svelte-swipe-cards",
 	"version": "0.0.1",
-	"private": true,
+	"type": "module",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/remoflury/svelte-swipe-cards"
+	},
+	"keywords": [
+		"svelte",
+		"swipe",
+		"cards",
+		"tinder",
+		"gesture"
+	],
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"default": "./dist/index.js"
+		}
+	},
+	"files": [
+		"dist",
+		"!dist/**/*.test.*",
+		"!dist/**/*.spec.*"
+	],
+	"peerDependencies": {
+		"svelte": "^4.0.0"
+	},
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build",
@@ -28,6 +54,5 @@
 		"typescript": "^5.0.0",
 		"typescript-eslint": "^8.0.0-alpha.20",
 		"vite": "^5.0.3"
-	},
-	"type": "module"
+	}
 }
