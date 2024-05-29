@@ -1,1 +1,4 @@
-// place files you want to import through the `$lib` alias in this folder.
+import SwipeDeck from "./SwipeDeck.svelte"
+import SwipeCard from "./SwipeCard.svelte"
+
+export { SwipeDeck, SwipeCard };
