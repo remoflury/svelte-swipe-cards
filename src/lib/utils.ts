@@ -34,10 +34,3 @@ export const getCurrentPos = (event: MouseEvent | TouchEvent) => {
   };
 };
 
-export const getDirection = (pos: number, direction: 'x' | 'y'): 'left' | 'right' | 'up' | 'down' | undefined => {
-  if (pos < 0 && direction === 'x') return 'left';
-  if (pos > 0 && direction === 'x') return 'right';
-  if (pos < 0 && direction === 'y') return 'up';
-  if (pos > 0 && direction === 'y') return 'down';
-  return undefined
-}

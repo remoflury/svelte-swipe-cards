@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { IntRange } from './types';
-	import { getCurrentPos, getDirection, setPos } from './utils';
-	import { createEventDispatcher, onDestroy } from 'svelte';
+	import { getCurrentPos, setPos } from './utils';
+	import { createEventDispatcher } from 'svelte';
 
 	export let allowedDirections: 'all' | 'horizontal' | 'vertical' = 'all';
 	export let threshold: IntRange<0, 101> = 50;
@@ -23,8 +23,6 @@
 		x: 0,
 		y: 0
 	};
-	$: directionX = getDirection(currentPos.x, 'x');
-	$: directionY = getDirection(currentPos.y, 'y');
 
 	const handleMouseDown = (event: MouseEvent | TouchEvent) => {
 		isDragging = true;
@@ -48,8 +46,6 @@
 		// set the current position to the mouse position relative to the start position
 		currentPos.x = setPos(x - startPos.x, y, allowedDirections).x;
 		currentPos.y = setPos(x, y - startPos.y, allowedDirections).y;
-
-		// console.log('Dragging:', event);
 	};
 
 	const handleMouseUp = (event: MouseEvent | TouchEvent) => {
@@ -57,14 +53,6 @@
 		isDragging = false;
 
 		const target = event.target as HTMLElement;
-
-		// switch (directionX) {
-		// 	case 'left':
-
-		// 		break;
-		// 	case 'right':
-		// 		break;
-		// }
 
 		// horizontal swipe
 		if (Math.abs(currentPos.x) > Math.abs(currentPos.y)) {
@@ -104,12 +92,6 @@
 		currentPos.x = 0;
 		currentPos.y = 0;
 	};
-
-	// event dispatching on card move
-	// $: if (directionX === 'left') dispatch('move_left');
-	// $: if (directionX === 'right') dispatch('move_right');
-	// $: if (directionY === 'up') dispatch('move_up');
-	// $: if (directionY === 'down') dispatch('move_down');
 </script>
 
 <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
