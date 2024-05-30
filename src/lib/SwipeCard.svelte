@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { getClickedPos, setPos } from './utils';
+
 	export let allowedDirections: 'all' | 'horizontal' | 'vertical' = 'all';
 
 	let isDragging = false;
@@ -17,8 +19,8 @@
 		const { x, y } = getClickedPos(event);
 
 		// set start position to the current mouse position
-		startPos.x = setPos(x, y).x;
-		startPos.y = setPos(x, y).y;
+		startPos.x = setPos(x, y, allowedDirections).x;
+		startPos.y = setPos(x, y, allowedDirections).y;
 
 		// Add event listener for mouse move and mouse up, aswell as touch move and touch end
 		window.addEventListener('mousemove', handleMouseMove);
@@ -31,8 +33,8 @@
 		if (!isDragging) return;
 
 		const { x, y } = getClickedPos(event);
-		currentPos.x = setPos(x - startPos.x, y).x;
-		currentPos.y = setPos(x, y - startPos.y).y;
+		currentPos.x = setPos(x - startPos.x, y, allowedDirections).x;
+		currentPos.y = setPos(x, y - startPos.y, allowedDirections).y;
 		console.log('Dragging:', event);
 	};
 
@@ -56,40 +58,6 @@
 	// 		elemOffsetLeft
 	// 	};
 	// };
-
-	const setPos = (setPosX: number, setPosY: number) => {
-		let x;
-		let y;
-		switch (allowedDirections) {
-			case 'horizontal':
-				x = setPosX;
-				y = 0;
-				break;
-			case 'vertical':
-				x = 0;
-				y = setPosY;
-				break;
-			case 'all':
-			default:
-				x = setPosX;
-				y = setPosY;
-				break;
-		}
-		return { x, y };
-	};
-	const getClickedPos = (event: MouseEvent | TouchEvent) => {
-		if (event instanceof MouseEvent) {
-			return {
-				x: event.clientX,
-				y: event.clientY
-			};
-		}
-
-		return {
-			x: event.touches[0].clientX,
-			y: event.touches[0].clientY
-		};
-	};
 
 	$: console.log(startPos);
 </script>

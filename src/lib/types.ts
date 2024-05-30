@@ -1,0 +1,1 @@
+export type AllowedDirections = "all" | "horizontal" | "vertical"
