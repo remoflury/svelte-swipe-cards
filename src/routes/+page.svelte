@@ -11,7 +11,7 @@
 	<h1>Svelte Swipe Card</h1>
 	<SwipeDeck>
 		{#each cards as card (card.id)}
-			<SwipeCard class="card">
+			<SwipeCard class="card" threshold={100}>
 				<p>{card.title}</p>
 			</SwipeCard>
 		{/each}

@@ -1,7 +1,10 @@
 <script lang="ts">
+	import type { IntRange } from './types';
 	import { getClickedPos, setPos } from './utils';
 
 	export let allowedDirections: 'all' | 'horizontal' | 'vertical' = 'all';
+	export let threshold: IntRange<0, 101> = 50;
+	export let ariaRoleDescription: string = 'swiping card';
 
 	let isDragging = false;
 	const startPos = {
@@ -33,6 +36,7 @@
 		if (!isDragging) return;
 
 		const { x, y } = getClickedPos(event);
+		// set the current position to the mouse position relative to the start position
 		currentPos.x = setPos(x - startPos.x, y, allowedDirections).x;
 		currentPos.y = setPos(x, y - startPos.y, allowedDirections).y;
 		console.log('Dragging:', event);
@@ -48,30 +52,22 @@
 		window.removeEventListener('touchend', handleMouseUp);
 	};
 
-	// const getElemOffset = (event: MouseEvent | TouchEvent) => {
-	// 	const target = event.target as HTMLElement;
-	// 	const elemOffsetTop = target.getBoundingClientRect().top;
-	// 	const elemOffsetLeft = target.getBoundingClientRect().left;
-
-	// 	return {
-	// 		elemOffsetTop,
-	// 		elemOffsetLeft
-	// 	};
-	// };
-
 	$: console.log(startPos);
 </script>
 
-<article
+<!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
+<div
 	class="swipe-card"
 	style={`transform: translate(${currentPos.x}px, ${currentPos.y}px)`}
 	on:mousedown={handleMouseDown}
 	on:touchstart={handleMouseDown}
+	aria-roledescription={ariaRoleDescription}
+	role="list"
 >
 	<div class={$$props.class}>
 		<slot />
 	</div>
-</article>
+</div>
 
 <style>
 	.swipe-card {
