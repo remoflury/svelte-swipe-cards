@@ -89,6 +89,8 @@
 		window.removeEventListener('mouseup', handleMouseUp);
 		window.removeEventListener('touchend', handleMouseUp);
 
+		if (!isSwiped) return;
+
 		setTimeout(() => {
 			isSwiped = false;
 			cardElem.remove();
