@@ -1,13 +1,12 @@
 <script lang="ts">
 	import type { IntRange } from './types';
 	import { getCurrentPos, setPos } from './utils';
-	import { createEventDispatcher, onDestroy } from 'svelte';
+	import { createEventDispatcher } from 'svelte';
 
 	export let allowedDirections: 'all' | 'horizontal' | 'vertical' = 'all';
 	export let threshold: IntRange<0, 101> = 50;
 	export let ariaRoleDescription: string = 'swiping card';
-	export let opacityTransitionDuration: number = 150;
-	export let transformTransitionDuration: number = 150;
+	export let transitionDuration: number = 150;
 
 	let cardElem: HTMLElement;
 
@@ -92,7 +91,7 @@
 		setTimeout(() => {
 			isSwiped = false;
 			cardElem.remove();
-		}, 500);
+		}, transitionDuration);
 	};
 
 	const resetPositions = () => {
@@ -109,8 +108,7 @@
 	class="swipe-card"
 	class:transition={isSwiped}
 	style={`
-		--opacity-transition-duration: ${opacityTransitionDuration}ms;
-		--transform-transition-duration: ${transformTransitionDuration}ms;
+		--transition-duration: ${transitionDuration}ms;
 		transform: 
 			translate(${currentPos.x}px, ${currentPos.y}px)
 			rotate(${currentPos.x / 40}deg);
@@ -136,8 +134,6 @@
 
 	.transition {
 		opacity: 0;
-		transition:
-			transform var(--transform-transition-duration) ease,
-			opacity var(--opacity-transition-duration) ease;
+		transition: all var(--transition-duration) ease;
 	}
 </style>
