@@ -74,5 +74,23 @@ SwipeCard components accept the following props:
 		{/each}
 	</SwipeDeck>
 ```
+
+If you have draggable elements inside your card, it may interfere with the swipe functionality. Just set `draggable="false"` on the element to disable dragging:
+
+```html
+<SwipeDeck class="card-deck">
+		{#each cards as card (card.id)}
+			<SwipeCard
+				class="card"
+        allowedDirections="horizontal"
+				threshold={30}
+        transitionDuration={500}
+			>
+				<p>{card.title}</p>
+        <img src="..." draggable="false" />
+			</SwipeCard>
+		{/each}
+	</SwipeDeck>
+```
 ## License
 Published under the [MIT](https://github.com/remoflury/svelte-swipe-cards/blob/main/LICENSE.md) license.
