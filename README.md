@@ -40,7 +40,7 @@ When a card is swiped, the component emits an event. You can listen to this even
 
 {#each cards as card (card.id)}
   <SwipeCard
-    on:swipe_right={() => console.log('right')}
+    on:swipe_swipe={() => console.log('swipe')}
     on:swipe_right={() => console.log('right')}
     on:swipe_left={() => console.log('left')}
     on:swipe_up={() => console.log('up')}
