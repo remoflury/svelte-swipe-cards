@@ -5,7 +5,7 @@
 	"license": "MIT",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/remoflury/svelte-swipe-cards"
+		"url": "git+https://github.com/remoflury/svelte-swipe-cards.git"
 	},
 	"keywords": [
 		"svelte",
