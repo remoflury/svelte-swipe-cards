@@ -20,7 +20,7 @@ export const setPos = (setPosX: number, setPosY: number, allowedDirections: Allo
   }
   return { x, y };
 };
-export const getClickedPos = (event: MouseEvent | TouchEvent) => {
+export const getCurrentPos = (event: MouseEvent | TouchEvent) => {
   if (event instanceof MouseEvent) {
     return {
       x: event.clientX,
@@ -33,3 +33,11 @@ export const getClickedPos = (event: MouseEvent | TouchEvent) => {
     y: event.touches[0].clientY
   };
 };
+
+export const getDirection = (pos: number, direction: 'x' | 'y'): 'left' | 'right' | 'up' | 'down' | undefined => {
+  if (pos < 0 && direction === 'x') return 'left';
+  if (pos > 0 && direction === 'x') return 'right';
+  if (pos < 0 && direction === 'y') return 'up';
+  if (pos > 0 && direction === 'y') return 'down';
+  return undefined
+}
