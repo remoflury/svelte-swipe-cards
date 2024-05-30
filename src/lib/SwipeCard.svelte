@@ -9,8 +9,6 @@
 
 	const dispatch = createEventDispatcher();
 
-	// TODO: implement swipe functionality
-
 	let isDragging = false;
 	let isSwiped = false;
 
@@ -62,6 +60,7 @@
 			if (Math.abs(currentPos.x) > (threshold / 100) * target.clientWidth) {
 				isSwiped = true;
 				currentPos.x = currentPos.x > 0 ? target.clientWidth * 1.5 : -target.clientWidth * 1.5;
+				dispatch('swipe_' + (currentPos.x > 0 ? 'right' : 'left'));
 			} else {
 				resetPositions();
 			}
@@ -74,6 +73,7 @@
 			if (Math.abs(currentPos.y) > (threshold / 100) * target.clientHeight) {
 				isSwiped = true;
 				currentPos.y = currentPos.y > 0 ? target.clientHeight * 1.5 : -target.clientHeight * 1.5;
+				dispatch('swipe_' + (currentPos.y > 0 ? 'down' : 'up'));
 			} else {
 				resetPositions();
 			}

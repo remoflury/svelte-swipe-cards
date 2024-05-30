@@ -11,11 +11,14 @@
 	<h1>Svelte Swipe Card</h1>
 	<SwipeDeck>
 		{#each cards.slice(0, 1) as card (card.id)}
-			<SwipeCard class="card" threshold={50}>
-				<!-- on:move_down={() => console.log('doooown')}
-				on:move_up={() => console.log('uuuup')}
-				on:move_left={() => console.log('leeeft')}
-				on:move_right={() => console.log('riiiight')} -->
+			<SwipeCard
+				class="card"
+				threshold={50}
+				on:swipe_right={() => console.log('right')}
+				on:swipe_left={() => console.log('left')}
+				on:swipe_up={() => console.log('up')}
+				on:swipe_down={() => console.log('down')}
+			>
 				<p>{card.title}</p>
 			</SwipeCard>
 		{/each}
