@@ -59,7 +59,7 @@ When a card is swiped, the component emits a `swipe` event with the direction of
 | `transitionDuration` | the duration of the transition duration after a swipe in milliseconds. affects opacity and transform | number | 150 |
 
 ### Example
-
+```html
 <SwipeDeck class="card-deck">
 		{#each cards as card (card.id)}
 			<SwipeCard
@@ -72,5 +72,6 @@ When a card is swiped, the component emits a `swipe` event with the direction of
 			</SwipeCard>
 		{/each}
 	</SwipeDeck>
+```
 ## License
 Published under the [MIT](https://github.com/remoflury/svelte-swipe-cards/blob/main/LICENSE.md) license.
