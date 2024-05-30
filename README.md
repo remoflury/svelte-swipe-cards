@@ -1,4 +1,4 @@
-#Svelte Swipe Cards
+# Svelte Swipe Cards
 [Svelte Swipe Cards](https://github.com/remoflury/svelte-swipe-cards) is a Svelte component library that allows you to create a Tinder-like swipe card interface. 
 
 ## Demo
