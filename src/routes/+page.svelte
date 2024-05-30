@@ -31,7 +31,7 @@
 
 	:global(.card) {
 		padding: 1rem;
-		border: black 1px solid;
+		border: red 1px solid;
 		aspect-ratio: 1/1;
 		background-color: white;
 	}
