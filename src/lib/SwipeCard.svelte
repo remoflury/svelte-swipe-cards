@@ -1,11 +1,12 @@
 <script lang="ts">
 	import type { IntRange } from './types';
 	import { getCurrentPos, setPos } from './utils';
-	import { createEventDispatcher } from 'svelte';
+	import { createEventDispatcher, onDestroy } from 'svelte';
 
 	export let allowedDirections: 'all' | 'horizontal' | 'vertical' = 'all';
 	export let threshold: IntRange<0, 101> = 50;
 	export let ariaRoleDescription: string = 'swiping card';
+	let cardElem: HTMLElement;
 
 	const dispatch = createEventDispatcher();
 
@@ -84,6 +85,11 @@
 		window.removeEventListener('touchmove', handleMouseMove);
 		window.removeEventListener('mouseup', handleMouseUp);
 		window.removeEventListener('touchend', handleMouseUp);
+
+		setTimeout(() => {
+			isSwiped = false;
+			cardElem.remove();
+		}, 500);
 	};
 
 	const resetPositions = () => {
@@ -96,6 +102,7 @@
 
 <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
 <div
+	bind:this={cardElem}
 	class="swipe-card"
 	class:transition={isSwiped}
 	style={`
@@ -123,7 +130,7 @@
 	}
 
 	.transition {
-		opacity: 0;
+		opacity: 1;
 		transition: all 150ms ease;
 	}
 </style>

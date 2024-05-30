@@ -10,10 +10,10 @@
 <section class="section">
 	<h1>Svelte Swipe Card</h1>
 	<SwipeDeck>
-		{#each cards.slice(0, 1) as card (card.id)}
+		{#each cards as card, index (card.id)}
 			<SwipeCard
 				class="card"
-				threshold={50}
+				threshold={30}
 				on:swipe_right={() => console.log('right')}
 				on:swipe_left={() => console.log('left')}
 				on:swipe_up={() => console.log('up')}
