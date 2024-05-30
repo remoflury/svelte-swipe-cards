@@ -63,6 +63,7 @@
 				isSwiped = true;
 				currentPos.x = currentPos.x > 0 ? target.clientWidth * 1.5 : -target.clientWidth * 1.5;
 				dispatch('swipe_' + (currentPos.x > 0 ? 'right' : 'left'));
+				dispatch('swipe');
 			} else {
 				resetPositions();
 			}
@@ -76,6 +77,7 @@
 				isSwiped = true;
 				currentPos.y = currentPos.y > 0 ? target.clientHeight * 1.5 : -target.clientHeight * 1.5;
 				dispatch('swipe_' + (currentPos.y > 0 ? 'down' : 'up'));
+				dispatch('swipe');
 			} else {
 				resetPositions();
 			}

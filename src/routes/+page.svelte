@@ -14,6 +14,7 @@
 			<SwipeCard
 				class="card"
 				threshold={30}
+				on:swipe={() => console.log('swipe')}
 				on:swipe_right={() => console.log('right')}
 				on:swipe_left={() => console.log('left')}
 				on:swipe_up={() => console.log('up')}
