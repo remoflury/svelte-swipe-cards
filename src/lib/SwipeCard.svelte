@@ -6,6 +6,9 @@
 	export let allowedDirections: 'all' | 'horizontal' | 'vertical' = 'all';
 	export let threshold: IntRange<0, 101> = 50;
 	export let ariaRoleDescription: string = 'swiping card';
+	export let opacityTransitionDuration: number = 150;
+	export let transformTransitionDuration: number = 150;
+
 	let cardElem: HTMLElement;
 
 	const dispatch = createEventDispatcher();
@@ -106,6 +109,8 @@
 	class="swipe-card"
 	class:transition={isSwiped}
 	style={`
+		--opacity-transition-duration: ${opacityTransitionDuration}ms;
+		--transform-transition-duration: ${transformTransitionDuration}ms;
 		transform: 
 			translate(${currentPos.x}px, ${currentPos.y}px)
 			rotate(${currentPos.x / 40}deg);
@@ -130,7 +135,9 @@
 	}
 
 	.transition {
-		opacity: 1;
-		transition: all 150ms ease;
+		opacity: 0;
+		transition:
+			transform var(--transform-transition-duration) ease,
+			opacity var(--opacity-transition-duration) ease;
 	}
 </style>

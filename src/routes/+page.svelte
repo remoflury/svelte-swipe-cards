@@ -10,7 +10,7 @@
 <section class="section">
 	<h1>Svelte Swipe Card</h1>
 	<SwipeDeck>
-		{#each cards as card, index (card.id)}
+		{#each cards as card (card.id)}
 			<SwipeCard
 				class="card"
 				threshold={30}
