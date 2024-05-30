@@ -7,7 +7,7 @@ Install the package via npm:
 
 
 ## Usage
-In your HTML, import <SwipeDeck> as a wrapper for your cards. Each <SwipeCard> component represents a card in the deck. It must be a direct child of <SwipeDeck>. The content of the card can be anything you like, just place it inside <SwipeCard>.
+In your HTML, import SwipeDeck as a wrapper for your cards. Each SwipeCard component represents a card in the deck. It must be a direct child of SwipeDeck. The content of the card can be anything you like, just place it inside SwipeCard.
 
 ```html
 <script lang="ts">
@@ -31,7 +31,7 @@ In your HTML, import <SwipeDeck> as a wrapper for your cards. Each <SwipeCard> c
 </SwipeDeck>
 ```
 ## Events
-When a card is swiped, the component emits a `swipe` event with the direction of the swipe as a parameter. You can listen to this event and update your data accordingly. 
+When a card is swiped, the component emits an event. You can listen to this event and update your data accordingly. 
 
 ```html
 
@@ -45,12 +45,12 @@ When a card is swiped, the component emits a `swipe` event with the direction of
 ```
 
 ## Props
-<SwipeDeck> components accept the following props:
+SwipeDeck components accept the following props:
 | Prop | Description |
 | --- | --- |
 | `class` | pass in your CSS classes to further style the deck |
 
-<SwipeCard> components accept the following props:
+SwipeCard components accept the following props:
 | Prop | Description | type | default |
 | --- | --- | --- | --- |
 | `class` | pass in your CSS classes to further style the card | string | '' |
