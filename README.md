@@ -57,7 +57,20 @@ When a card is swiped, the component emits a `swipe` event with the direction of
 | `allowedDirections` | allow the card to be swiped in specific directions. | 'all', 'horizontal', 'vertical' | 'all' |
 | `threshold` | the minimum distance (percentage) the card must be swiped to trigger a swipe event | number between 1 and 100 | 50 |
 | `transitionDuration` | the duration of the transition duration after a swipe in milliseconds. affects opacity and transform | number | 150 |
-| `ariaRoleDescription` | description for the aria role | string | 'swiping card' |
 
+### Example
+
+<SwipeDeck class="card-deck">
+		{#each cards as card (card.id)}
+			<SwipeCard
+				class="card"
+        allowedDirections="horizontal"
+				threshold={30}
+        transitionDuration={500}
+			>
+				<p>{card.title}</p>
+			</SwipeCard>
+		{/each}
+	</SwipeDeck>
 ## License
 Published under the [MIT](https://github.com/remoflury/svelte-swipe-cards/blob/main/LICENSE.md) license.

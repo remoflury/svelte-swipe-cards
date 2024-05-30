@@ -5,7 +5,6 @@
 
 	export let allowedDirections: 'all' | 'horizontal' | 'vertical' = 'all';
 	export let threshold: IntRange<0, 101> = 50;
-	export let ariaRoleDescription: string = 'swiping card';
 	export let transitionDuration: number = 150;
 
 	let cardElem: HTMLElement;
@@ -115,8 +114,7 @@
 		`}
 	on:mousedown={handleMouseDown}
 	on:touchstart={handleMouseDown}
-	aria-roledescription={ariaRoleDescription}
-	role="list"
+	role="listitem"
 >
 	<div class={$$props.class}>
 		<slot />
