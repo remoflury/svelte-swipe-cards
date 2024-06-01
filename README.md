@@ -57,6 +57,7 @@ SwipeDeck components accept the following props:
 SwipeCard components accept the following props:
 | Prop | Description | type | default |
 | --- | --- | --- | --- |
+| `index` | the index of the card in the deck | number (required) | - |
 | `class` | pass in your CSS classes to further style the card | string | '' |
 | `allowedDirections` | allow the card to be swiped in specific directions. | 'all', 'horizontal', 'vertical' | 'all' |
 | `threshold` | the minimum distance (percentage) the card must be swiped to trigger a swipe event | number between 1 and 100 | 50 |
