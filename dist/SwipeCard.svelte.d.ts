@@ -6,6 +6,7 @@ declare const __propDef: {
         allowedDirections?: "all" | "horizontal" | "vertical" | undefined;
         threshold?: IntRange<0, 101> | undefined;
         transitionDuration?: number | undefined;
+        index: number;
     };
     events: {
         swipe: CustomEvent<any>;

@@ -3,6 +3,7 @@ import { createEventDispatcher } from "svelte";
 export let allowedDirections = "all";
 export let threshold = 50;
 export let transitionDuration = 150;
+export let index;
 let cardElem;
 const dispatch = createEventDispatcher();
 let isDragging = false;
@@ -60,6 +61,8 @@ const handleMouseUp = (event) => {
   window.removeEventListener("touchmove", handleMouseMove);
   window.removeEventListener("mouseup", handleMouseUp);
   window.removeEventListener("touchend", handleMouseUp);
+  if (!isSwiped)
+    return;
   setTimeout(() => {
     isSwiped = false;
     cardElem.remove();
@@ -83,6 +86,7 @@ const resetPositions = () => {
 		transform: 
 			translate(${currentPos.x}px, ${currentPos.y}px)
 			rotate(${currentPos.x / 40}deg);
+		z-index: ${index * -1};
 		`}
 	on:mousedown={handleMouseDown}
 	on:touchstart={handleMouseDown}
