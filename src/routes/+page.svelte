@@ -10,9 +10,10 @@
 <section class="section">
 	<h1>Svelte Swipe Card</h1>
 	<SwipeDeck>
-		{#each cards as card (card.id)}
+		{#each cards as card, index (card.id)}
 			<SwipeCard
 				class="card"
+				{index}
 				threshold={30}
 				on:swipe={() => console.log('swipe')}
 				on:swipe_right={() => console.log('right')}
@@ -20,6 +21,7 @@
 				on:swipe_up={() => console.log('up')}
 				on:swipe_down={() => console.log('down')}
 			>
+				<p>{card.id}</p>
 				<p>{card.title}</p>
 			</SwipeCard>
 		{/each}

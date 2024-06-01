@@ -6,6 +6,7 @@
 	export let allowedDirections: 'all' | 'horizontal' | 'vertical' = 'all';
 	export let threshold: IntRange<0, 101> = 50;
 	export let transitionDuration: number = 150;
+	export let index: number;
 
 	let cardElem: HTMLElement;
 
@@ -115,6 +116,7 @@
 		transform: 
 			translate(${currentPos.x}px, ${currentPos.y}px)
 			rotate(${currentPos.x / 40}deg);
+		z-index: ${index * -1};
 		`}
 	on:mousedown={handleMouseDown}
 	on:touchstart={handleMouseDown}
