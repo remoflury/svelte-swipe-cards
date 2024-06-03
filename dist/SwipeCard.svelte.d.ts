@@ -9,6 +9,10 @@ declare const __propDef: {
         index: number;
     };
     events: {
+        move_right: CustomEvent<any>;
+        move_left: CustomEvent<any>;
+        move_down: CustomEvent<any>;
+        move_up: CustomEvent<any>;
         swipe: CustomEvent<any>;
     } & {
         [evt: string]: CustomEvent<any>;

@@ -4,6 +4,11 @@
 ## Demo
 [Demo](https://svelte.dev/repl/ecba44b882604daaad887605569b4085)
 
+## Features
+* Swipe cards in all directions (up, down, left, right)
+* Listen to swipe & move events
+* Completely customizable with CSS
+
 ## Installation
 Install the package via npm:
 * `npm install svelte-swipe-cards`
@@ -35,6 +40,7 @@ In your HTML, import SwipeDeck as a wrapper for your cards. Each SwipeCard compo
 ```
 ## Events
 When a card is swiped, the component emits an event. You can listen to this event and update your data accordingly. 
+Moreover, as soon as the card is swiped in a specific direction (relative to the starting position), the component emits an event for that direction. You can listen to these events and update your data or style your component accordingly.
 
 ```html
 
@@ -45,6 +51,10 @@ When a card is swiped, the component emits an event. You can listen to this even
     on:swipe_left={() => console.log('left')}
     on:swipe_up={() => console.log('up')}
     on:swipe_down={() => console.log('down')}
+    on:move_left={() => console.log('move left')}
+    on:move_right={() => console.log('move right')}
+    on:move_up={() => console.log('move up')}
+    on:move_down={() => console.log('move down')}
   />
 ```
 
