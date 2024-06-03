@@ -1,12 +1,14 @@
 <script lang="ts">
-	import type { IntRange } from './types';
+	import type { IntRange, SwipeDeckStore } from './types';
 	import { getCurrentPos, setPos } from './utils';
-	import { createEventDispatcher } from 'svelte';
+	import { createEventDispatcher, getContext, onMount } from 'svelte';
 
 	export let allowedDirections: 'all' | 'horizontal' | 'vertical' = 'all';
 	export let threshold: IntRange<0, 101> = 50;
 	export let transitionDuration: number = 150;
 	export let index: number;
+
+	let deckContext: SwipeDeckStore = getContext('deck');
 
 	let cardElem: HTMLElement;
 
@@ -118,6 +120,12 @@
 		currentPos.x = 0;
 		currentPos.y = 0;
 	};
+
+	onMount(() => {
+		if (!$deckContext.height) {
+			deckContext.setHeight(cardElem.clientHeight);
+		}
+	});
 </script>
 
 <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
