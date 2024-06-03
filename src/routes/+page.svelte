@@ -20,6 +20,10 @@
 				on:swipe_left={() => console.log('left')}
 				on:swipe_up={() => console.log('up')}
 				on:swipe_down={() => console.log('down')}
+				on:move_left={() => console.log('move left')}
+				on:move_right={() => console.log('move right')}
+				on:move_up={() => console.log('move up')}
+				on:move_down={() => console.log('move down')}
 			>
 				<p>{card.id}</p>
 				<p>{card.title}</p>

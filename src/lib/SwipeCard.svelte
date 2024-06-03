@@ -47,6 +47,20 @@
 		// set the current position to the mouse position relative to the start position
 		currentPos.x = setPos(x - startPos.x, y, allowedDirections).x;
 		currentPos.y = setPos(x, y - startPos.y, allowedDirections).y;
+
+		if (currentPos.x > 0) {
+			dispatch('move_right');
+		}
+		if (currentPos.x < 0) {
+			dispatch('move_left');
+		}
+
+		if (currentPos.y > 0) {
+			dispatch('move_down');
+		}
+		if (currentPos.y < 0) {
+			dispatch('move_up');
+		}
 	};
 
 	const handleMouseUp = (event: MouseEvent | TouchEvent) => {
