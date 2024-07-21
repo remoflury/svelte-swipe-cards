@@ -4,8 +4,8 @@
 	import { createEventDispatcher } from 'svelte';
 
 	export let allowedDirections: 'all' | 'horizontal' | 'vertical' = 'all';
-	export let threshold: IntRange<0, 101> = 50;
-	export let transitionDuration: number = 150;
+	export let threshold: IntRange<0, 101>;
+	export let transitionDuration: number;
 	export let index: number;
 
 	let cardElem: HTMLLIElement;

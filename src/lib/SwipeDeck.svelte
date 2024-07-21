@@ -1,8 +1,12 @@
 <script lang="ts">
+	import type { IntRange } from './types';
 	import { onMount } from 'svelte';
 	import { SwipeCard } from '$lib/index';
 
 	export let cards: any[];
+	export let threshold: IntRange<0, 101> = 50;
+	export let transitionDuration: number = 150;
+
 	let deckElem: HTMLUListElement;
 	let maxHeight = 0;
 
@@ -21,7 +25,8 @@
 		<SwipeCard
 			class="card"
 			{index}
-			threshold={30}
+			{threshold}
+			{transitionDuration}
 			on:move_down
 			on:move_left
 			on:move_right
