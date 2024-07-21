@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { IntRange } from './types';
+	import type { Directions, IntRange } from './types';
 	import { onMount } from 'svelte';
 	import { SwipeCard } from '$lib/index';
 
@@ -16,7 +16,7 @@
 		maxHeight = Math.max(...Array.from(cards).map((card) => card.clientHeight)) ?? 0;
 	};
 
-	export const swipeCard = (index: number, direction: 'left' | 'right' | 'up' | 'down') => {
+	export const swipeCard = (index: number, direction: Directions) => {
 		if (cardComponents[index]) {
 			cardComponents[index].swipe(direction);
 		}

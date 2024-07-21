@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { IntRange } from './types';
+	import type { Directions, IntRange } from './types';
 	import { getCurrentPos, setPos } from './utils';
 	import { createEventDispatcher } from 'svelte';
 
@@ -120,7 +120,7 @@
 	};
 
 	// Add a function to programmatically swipe the card
-	export const swipe = (direction: 'left' | 'right' | 'up' | 'down') => {
+	export const swipe = (direction: Directions) => {
 		const targetWidth = cardElem.clientWidth;
 		const targetHeight = cardElem.clientHeight;
 		isSwiped = true;

@@ -1,13 +1,12 @@
 <script lang="ts">
-	import { SwipeDeck, SwipeCard } from '$lib/index';
+	import { SwipeDeck } from '$lib/index';
 	import type { SvelteComponent } from 'svelte';
 
 	export let data;
-	let deck: SvelteComponent;
-	let currentIndex = 0;
 	const cards = data.products;
 
-	console.log(data.products);
+	let deck: SvelteComponent;
+	let currentIndex = 0;
 
 	function handleSwipe(index: number, direction: string) {
 		deck.swipeCard(index, direction);
