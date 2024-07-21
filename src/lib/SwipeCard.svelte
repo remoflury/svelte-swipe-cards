@@ -8,7 +8,7 @@
 	export let transitionDuration: number = 150;
 	export let index: number;
 
-	let cardElem: HTMLElement;
+	let cardElem: HTMLLIElement;
 
 	const dispatch = createEventDispatcher();
 
@@ -49,17 +49,17 @@
 		currentPos.y = setPos(x, y - startPos.y, allowedDirections).y;
 
 		if (currentPos.x > 0) {
-			dispatch('move_right');
+			dispatch('move_right', { index });
 		}
 		if (currentPos.x < 0) {
-			dispatch('move_left');
+			dispatch('move_left', { index });
 		}
 
 		if (currentPos.y > 0) {
-			dispatch('move_down');
+			dispatch('move_down', { index });
 		}
 		if (currentPos.y < 0) {
-			dispatch('move_up');
+			dispatch('move_up', { index });
 		}
 	};
 
@@ -77,8 +77,8 @@
 			if (Math.abs(currentPos.x) > (threshold / 100) * target.clientWidth) {
 				isSwiped = true;
 				currentPos.x = currentPos.x > 0 ? target.clientWidth * 1.5 : -target.clientWidth * 1.5;
-				dispatch('swipe_' + (currentPos.x > 0 ? 'right' : 'left'));
-				dispatch('swipe');
+				dispatch('swipe_' + (currentPos.x > 0 ? 'right' : 'left'), { index });
+				dispatch('swipe', { index });
 			} else {
 				resetPositions();
 			}
@@ -91,8 +91,8 @@
 			if (Math.abs(currentPos.y) > (threshold / 100) * target.clientHeight) {
 				isSwiped = true;
 				currentPos.y = currentPos.y > 0 ? target.clientHeight * 1.5 : -target.clientHeight * 1.5;
-				dispatch('swipe_' + (currentPos.y > 0 ? 'down' : 'up'));
-				dispatch('swipe');
+				dispatch('swipe_' + (currentPos.y > 0 ? 'down' : 'up'), { index });
+				dispatch('swipe', { index });
 			} else {
 				resetPositions();
 			}
@@ -121,7 +121,7 @@
 </script>
 
 <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
-<div
+<li
 	bind:this={cardElem}
 	class="swipe-card"
 	class:transition={isSwiped}
@@ -140,7 +140,7 @@
 	<div class={$$props.class}>
 		<slot />
 	</div>
-</div>
+</li>
 
 <style>
 	.swipe-card {
@@ -149,6 +149,8 @@
 		right: 0;
 		cursor: grab;
 		opacity: 1;
+		list-style: none;
+		padding: 0;
 	}
 
 	.transition {

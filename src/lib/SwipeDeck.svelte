@@ -1,7 +1,9 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import { SwipeCard } from '$lib/index';
 
-	let deckElem: HTMLDivElement;
+	export let cards: any[];
+	let deckElem: HTMLUListElement;
 	let maxHeight = 0;
 
 	const setMaxHeight = () => {
@@ -14,9 +16,22 @@
 </script>
 
 <svelte:window on:resize={setMaxHeight} />
-<div class={$$props.class} bind:this={deckElem} style:height="{maxHeight}px">
-	<slot />
-</div>
+<ul class={$$props.class} bind:this={deckElem} style:height="{maxHeight}px">
+	{#each cards as card, index}
+		<SwipeCard
+			class="card"
+			{index}
+			threshold={30}
+			on:move_down
+			on:move_left
+			on:move_right
+			on:move_up
+			on:swipe
+		>
+			<slot {card} />
+		</SwipeCard>
+	{/each}
+</ul>
 
 <style>
 	*,
@@ -26,7 +41,10 @@
 		margin: 0;
 	}
 
-	div {
+	ul {
 		position: relative;
+		isolation: isolate;
+		list-style: none;
+		padding: 0;
 	}
 </style>

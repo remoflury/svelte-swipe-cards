@@ -9,26 +9,21 @@
 
 <section class="section">
 	<h1>Svelte Swipe Card</h1>
-	<SwipeDeck>
-		{#each cards as card, index (card.id)}
-			<SwipeCard
-				class="card"
-				{index}
-				threshold={30}
-				on:swipe={() => console.log('swipe')}
-				on:swipe_right={() => console.log('right')}
-				on:swipe_left={() => console.log('left')}
-				on:swipe_up={() => console.log('up')}
-				on:swipe_down={() => console.log('down')}
-				on:move_left={() => console.log('move left')}
-				on:move_right={() => console.log('move right')}
-				on:move_up={() => console.log('move up')}
-				on:move_down={() => console.log('move down')}
-			>
-				<p>{card.id}</p>
-				<p>{card.title}</p>
-			</SwipeCard>
-		{/each}
+	<SwipeDeck
+		{cards}
+		let:card
+		on:swipe={(e) => console.log(e.detail.index)}
+		on:swipe_right={(e) => console.log(e.detail.index)}
+		on:swipe_left={(e) => console.log(e.detail.index)}
+		on:swipe_up={(e) => console.log(e.detail.index)}
+		on:swipe_down={(e) => console.log(e.detail.index)}
+		on:move_left={(e) => console.log(e.detail.index)}
+		on:move_right={(e) => console.log(e.detail.index)}
+		on:move_up={(e) => console.log(e.detail.index)}
+		on:move_down={(e) => console.log(e.detail.index)}
+	>
+		<p>{card.id}</p>
+		<p>{card.title}</p>
 	</SwipeDeck>
 </section>
 
