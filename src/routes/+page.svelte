@@ -46,7 +46,7 @@
 	:global(.card) {
 		padding: 1rem;
 		border: red 1px solid;
-		aspect-ratio: 1/1;
+		aspect-ratio: 16/9;
 		background-color: white;
 	}
 </style>
