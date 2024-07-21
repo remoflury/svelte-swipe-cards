@@ -6,6 +6,7 @@
 	export let cards: any[];
 	export let threshold: IntRange<0, 101> = 50;
 	export let transitionDuration: number = 150;
+	let cardComponents: any[] = [];
 
 	let deckElem: HTMLUListElement;
 	let maxHeight = 0;
@@ -14,6 +15,13 @@
 		const cards = deckElem.querySelectorAll('[data-swipe-card]');
 		maxHeight = Math.max(...Array.from(cards).map((card) => card.clientHeight)) ?? 0;
 	};
+
+	export const swipeCard = (index: number, direction: 'left' | 'right' | 'up' | 'down') => {
+		if (cardComponents[index]) {
+			cardComponents[index].swipe(direction);
+		}
+	};
+
 	onMount(() => {
 		setMaxHeight();
 	});
@@ -27,6 +35,7 @@
 			{index}
 			{threshold}
 			{transitionDuration}
+			bind:this={cardComponents[index]}
 			on:move_down
 			on:move_left
 			on:move_right
@@ -37,6 +46,8 @@
 		</SwipeCard>
 	{/each}
 </ul>
+
+<slot name="swipe-btn" />
 
 <style>
 	*,

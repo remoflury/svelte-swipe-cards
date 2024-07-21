@@ -118,6 +118,38 @@
 		currentPos.x = 0;
 		currentPos.y = 0;
 	};
+
+	// Add a function to programmatically swipe the card
+	export const swipe = (direction: 'left' | 'right' | 'up' | 'down') => {
+		const targetWidth = cardElem.clientWidth;
+		const targetHeight = cardElem.clientHeight;
+		isSwiped = true;
+
+		switch (direction) {
+			case 'left':
+				currentPos.x = -targetWidth * 1.5;
+				dispatch('swipe_left', { index });
+				break;
+			case 'right':
+				currentPos.x = targetWidth * 1.5;
+				dispatch('swipe_right', { index });
+				break;
+			case 'up':
+				currentPos.y = -targetHeight * 1.5;
+				dispatch('swipe_up', { index });
+				break;
+			case 'down':
+				currentPos.y = targetHeight * 1.5;
+				dispatch('swipe_down', { index });
+				break;
+		}
+		dispatch('swipe', { index });
+
+		// Animation to remove the card
+		setTimeout(() => {
+			cardElem.remove();
+		}, transitionDuration);
+	};
 </script>
 
 <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
