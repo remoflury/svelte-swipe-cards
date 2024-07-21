@@ -12,6 +12,8 @@
 	<SwipeDeck
 		{cards}
 		let:card
+		threshold={30}
+		transitionDuration={250}
 		on:swipe={(e) => console.log(e.detail.index)}
 		on:swipe_right={(e) => console.log(e.detail.index)}
 		on:swipe_left={(e) => console.log(e.detail.index)}
@@ -43,5 +45,9 @@
 		border: red 1px solid;
 		aspect-ratio: 16/9;
 		background-color: white;
+	}
+
+	:global(body) {
+		overflow-x: hidden;
 	}
 </style>
