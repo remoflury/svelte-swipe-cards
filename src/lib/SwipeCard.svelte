@@ -135,6 +135,7 @@
 	on:mousedown={handleMouseDown}
 	on:touchstart={handleMouseDown}
 	role="listitem"
+	data-swipe-card={index}
 >
 	<div class={$$props.class}>
 		<slot />
