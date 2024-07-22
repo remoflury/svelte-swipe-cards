@@ -6,19 +6,24 @@ export let threshold = 50;
 export let transitionDuration = 150;
 export let allowedDirections = "all";
 let cardComponents = [];
+let currentIndex = 0;
+let deckElemBlockPaddingAndMargin = 0;
 let deckElem;
 let maxCardHeight = 0;
 const setMaxHeight = () => {
   const cards2 = deckElem.querySelectorAll("[data-swipe-card]");
   maxCardHeight = Math.max(...Array.from(cards2).map((card) => card.clientHeight)) ?? 0;
 };
-export const swipeCard = (index, direction) => {
-  if (cardComponents[index]) {
-    cardComponents[index].swipe(direction);
+export const swipe = (direction) => {
+  if (cardComponents[currentIndex]) {
+    cardComponents[currentIndex].swipe(direction);
+    currentIndex++;
   }
 };
 onMount(() => {
   setMaxHeight();
+  const deckElemStyles = window.getComputedStyle(deckElem);
+  deckElemBlockPaddingAndMargin = parseFloat(deckElemStyles.paddingTop) + parseFloat(deckElemStyles.paddingBottom) + parseFloat(deckElemStyles.marginTop) + parseFloat(deckElemStyles.marginBottom);
 });
 </script>
 
@@ -27,7 +32,7 @@ onMount(() => {
 <ul
 	class={deckClass}
 	bind:this={deckElem}
-	style:min-height="{deckElem?.clientHeight + maxCardHeight}px"
+	style:min-height="{deckElemBlockPaddingAndMargin + maxCardHeight}px"
 >
 	{#each cards as card, index}
 		<SwipeCard
