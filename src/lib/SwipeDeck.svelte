@@ -69,4 +69,8 @@
 		list-style: none;
 		padding: 0;
 	}
+
+	:global(body) {
+		overflow-x: hidden;
+	}
 </style>

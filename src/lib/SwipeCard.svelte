@@ -175,6 +175,13 @@
 </li>
 
 <style>
+	*,
+	*::before,
+	*::after {
+		box-sizing: border-box;
+		margin: 0;
+	}
+
 	.swipe-card {
 		position: absolute;
 		left: 0;

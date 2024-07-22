@@ -19,6 +19,29 @@
 	<SwipeDeck
 		deckClass="deck"
 		class="card"
+		{cards}
+		let:card
+		threshold={30}
+		transitionDuration={500}
+		on:swipe={(e) => console.log(e.detail.index)}
+		on:swipe_right={(e) => console.log(e.detail.index)}
+		on:swipe_left={(e) => console.log(e.detail.index)}
+		on:swipe_up={(e) => console.log(e.detail.index)}
+		on:swipe_down={(e) => console.log(e.detail.index)}
+		on:move_left={(e) => console.log(e.detail.index)}
+		on:move_right={(e) => console.log(e.detail.index)}
+		on:move_up={(e) => console.log(e.detail.index)}
+		on:move_down={(e) => console.log(e.detail.index)}
+	>
+		<p>{card.id}</p>
+		<p>{card.title}</p>
+	</SwipeDeck>
+</section>
+<section class="section">
+	<h1>Svelte Swipe Card</h1>
+	<SwipeDeck
+		deckClass="deck"
+		class="card"
 		bind:this={deck}
 		{cards}
 		let:card
@@ -57,7 +80,7 @@
 	}
 
 	:global(.deck) {
-		padding-top: 1rem !important;
+		margin-top: 1rem;
 	}
 
 	:global(.card) {
@@ -65,9 +88,5 @@
 		border: red 1px solid;
 		aspect-ratio: 16/9;
 		background-color: white;
-	}
-
-	:global(body) {
-		overflow-x: hidden;
 	}
 </style>
