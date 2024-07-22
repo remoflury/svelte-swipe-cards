@@ -8,7 +8,7 @@ declare const __propDef: {
         threshold?: IntRange<0, 101> | undefined;
         transitionDuration?: number | undefined;
         allowedDirections?: AllowedDirections | undefined;
-        swipeCard?: ((index: number, direction: Directions) => void) | undefined;
+        swipe?: ((direction: Directions) => void) | undefined;
     };
     events: {
         move_down: CustomEvent<any>;
@@ -32,6 +32,6 @@ export type SwipeDeckProps = typeof __propDef.props;
 export type SwipeDeckEvents = typeof __propDef.events;
 export type SwipeDeckSlots = typeof __propDef.slots;
 export default class SwipeDeck extends SvelteComponent<SwipeDeckProps, SwipeDeckEvents, SwipeDeckSlots> {
-    get swipeCard(): (index: number, direction: Directions) => void;
+    get swipe(): (direction: Directions) => void;
 }
 export {};
