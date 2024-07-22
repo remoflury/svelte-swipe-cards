@@ -38,10 +38,10 @@
 		<p>{card.id}</p>
 		<p>{card.title}</p>
 		<svelte:fragment slot="swipe-btn">
-			<button on:click={() => deck.swipeCard('left')}>Swipe Left</button>
-			<button on:click={() => deck.swipeCard('right')}>Swipe Right</button>
-			<button on:click={() => deck.swipeCard('up')}>Swipe Up</button>
-			<button on:click={() => deck.swipeCard('down')}>Swipe Down</button>
+			<button on:click={() => deck.swipe('left')}>Swipe Left</button>
+			<button on:click={() => deck.swipe('right')}>Swipe Right</button>
+			<button on:click={() => deck.swipe('up')}>Swipe Up</button>
+			<button on:click={() => deck.swipe('down')}>Swipe Down</button>
 		</svelte:fragment>
 	</SwipeDeck>
 </section>

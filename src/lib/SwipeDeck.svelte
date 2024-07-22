@@ -8,9 +8,7 @@
 	export let threshold: IntRange<0, 101> = 50;
 	export let transitionDuration: number = 150;
 	export let allowedDirections: AllowedDirections = 'all';
-	// export const swipe: (direction: Directions) => void = (direction) => {
-	// 	deckElem.swipeCard(currentIndex, direction);
-	// };
+
 	let cardComponents: any[] = [];
 	let currentIndex = 0;
 
@@ -22,7 +20,7 @@
 		maxCardHeight = Math.max(...Array.from(cards).map((card) => card.clientHeight)) ?? 0;
 	};
 
-	export const swipeCard = (direction: Directions) => {
+	export const swipe = (direction: Directions) => {
 		if (cardComponents[currentIndex]) {
 			cardComponents[currentIndex].swipe(direction);
 			currentIndex++;
