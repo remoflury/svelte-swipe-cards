@@ -1,34 +1,54 @@
-<script>
-	import { SwipeDeck, SwipeCard } from '$lib/index';
+<script lang="ts">
+	import { SwipeDeck } from '$lib/index';
+	import type { SvelteComponent } from 'svelte';
 
 	export let data;
 	const cards = data.products;
 
-	console.log(data.products);
+	let deck: SvelteComponent;
+	let currentIndex = 0;
+
+	function handleSwipe(index: number, direction: string) {
+		deck.swipeCard(index, direction);
+		currentIndex++;
+	}
 </script>
 
 <section class="section">
 	<h1>Svelte Swipe Card</h1>
-	<SwipeDeck>
-		{#each cards as card, index (card.id)}
-			<SwipeCard
-				class="card"
-				{index}
-				threshold={30}
-				on:swipe={() => console.log('swipe')}
-				on:swipe_right={() => console.log('right')}
-				on:swipe_left={() => console.log('left')}
-				on:swipe_up={() => console.log('up')}
-				on:swipe_down={() => console.log('down')}
-				on:move_left={() => console.log('move left')}
-				on:move_right={() => console.log('move right')}
-				on:move_up={() => console.log('move up')}
-				on:move_down={() => console.log('move down')}
-			>
-				<p>{card.id}</p>
-				<p>{card.title}</p>
-			</SwipeCard>
-		{/each}
+	<SwipeDeck deckClass="deck" class="card" {cards} let:card threshold={30} transitionDuration={500}>
+		<p>{card.id}</p>
+		<p>{card.title}</p>
+	</SwipeDeck>
+</section>
+<section class="section">
+	<h1>Svelte Swipe Card</h1>
+	<SwipeDeck
+		deckClass="deck"
+		class="card"
+		bind:this={deck}
+		{cards}
+		let:card
+		threshold={30}
+		transitionDuration={500}
+		on:swipe={(e) => console.log(e.detail.index)}
+		on:swipe_right={(e) => console.log(e.detail.index)}
+		on:swipe_left={(e) => console.log(e.detail.index)}
+		on:swipe_up={(e) => console.log(e.detail.index)}
+		on:swipe_down={(e) => console.log(e.detail.index)}
+		on:move_left={(e) => console.log(e.detail.index)}
+		on:move_right={(e) => console.log(e.detail.index)}
+		on:move_up={(e) => console.log(e.detail.index)}
+		on:move_down={(e) => console.log(e.detail.index)}
+	>
+		<p>{card.id}</p>
+		<p>{card.title}</p>
+		<svelte:fragment slot="swipe-btn">
+			<button on:click={() => handleSwipe(currentIndex, 'left')}>Swipe Left</button>
+			<button on:click={() => handleSwipe(currentIndex, 'right')}>Swipe Right</button>
+			<button on:click={() => handleSwipe(currentIndex, 'up')}>Swipe Up</button>
+			<button on:click={() => handleSwipe(currentIndex, 'down')}>Swipe Down</button>
+		</svelte:fragment>
 	</SwipeDeck>
 </section>
 
@@ -43,10 +63,14 @@
 		margin-inline: 1rem;
 	}
 
+	:global(.deck) {
+		margin-top: 1rem;
+	}
+
 	:global(.card) {
 		padding: 1rem;
 		border: red 1px solid;
-		aspect-ratio: 1/1;
+		aspect-ratio: 16/9;
 		background-color: white;
 	}
 </style>
