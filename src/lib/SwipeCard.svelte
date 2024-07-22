@@ -1,9 +1,9 @@
 <script lang="ts">
-	import type { Directions, IntRange } from './types';
+	import type { AllowedDirections, Directions, IntRange } from './types';
 	import { getCurrentPos, setPos } from './utils';
 	import { createEventDispatcher } from 'svelte';
 
-	export let allowedDirections: 'all' | 'horizontal' | 'vertical' = 'all';
+	export let allowedDirections: AllowedDirections = 'all';
 	export let threshold: IntRange<0, 101>;
 	export let transitionDuration: number;
 	export let index: number;

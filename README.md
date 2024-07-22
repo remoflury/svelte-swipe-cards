@@ -15,7 +15,7 @@ Install the package via npm:
 
 
 ## Usage
-In your HTML, import SwipeDeck as a wrapper for your cards. Each SwipeCard component represents a card in the deck. It must be a direct child of SwipeDeck. The content of the card can be anything you like, just place it inside SwipeCard.
+In your HTML, import SwipeDeck as a wrapper for your cards. TInstantiate the each card with the let:card directive to access the card object in the slot.
 
 ```html
 <script lang="ts">
@@ -30,45 +30,111 @@ In your HTML, import SwipeDeck as a wrapper for your cards. Each SwipeCard compo
   ];
 </script>
 
-<SwipeDeck>
-  {#each cards as card (card.id)}
-    <SwipeCard>
-      <p>{card.text}</p>
-    </SwipeCard>
-  {/each}
-</SwipeDeck>
+```html
+  <SwipeDeck {cards} let:card>
+    <!-- The content of each card: -->
+		<p>{card.id}</p>
+		<p>{card.title}</p>
+	</SwipeDeck>
 ```
+
+Inside of SwipeDeck all cards are automatically passed to the slot. You can style the card wrapper (SwipeDeck) and the cards (SwipeCard) with CSS. Be sure, to use the :global() selector to apply the styles globally, as the styles itself will be applied inside the component.
+
+```html
+<SwipeDeck 
+  {cards} 
+  let:card
+  deckClass="card-deck"
+  class="card"
+>
+		<p>{card.id}</p>
+		<p>{card.title}</p>
+	</SwipeDeck>
+
+<style>
+
+  :global(.deck) {
+		margin-top: 1rem;
+	}
+  :global(.card) {
+		padding: 1rem;
+		border: red 1px solid;
+		aspect-ratio: 16/9;
+		background-color: white;
+	}
+</style>
+```
+
 ## Events
 When a card is swiped, the component emits an event. You can listen to this event and update your data accordingly. 
-Moreover, as soon as the card is swiped in a specific direction (relative to the starting position), the component emits an event for that direction. You can listen to these events and update your data or style your component accordingly.
+Moreover, as soon as the card is swiped in a specific direction (relative to the starting position), the component emits an event for that direction. You can listen to these events and update your data or style your component accordingly. You can access the index of the swiped card from the event object.
+
+```html
+<SwipeDeck
+		on:swipe={(e) => console.log(e.detail.index)}
+		on:swipe_right={(e) => console.log(e.detail.index)}
+		on:swipe_left={(e) => console.log(e.detail.index)}
+		on:swipe_up={(e) => console.log(e.detail.index)}
+		on:swipe_down={(e) => console.log(e.detail.index)}
+		on:move_left={(e) => console.log(e.detail.index)}
+		on:move_right={(e) => console.log(e.detail.index)}
+		on:move_up={(e) => console.log(e.detail.index)}
+		on:move_down={(e) => console.log(e.detail.index)}
+	>
+    <p>{card.id}</p>
+		<p>{card.title}</p>
+  </SwipeDeck>
+```
+
+## Programatically swipe cards
+You can also swipe cards programatically by calling the swipe method on the SwipeDeck component. The method accepts the index of the card to swipe and the direction to swipe the card. The direction can be 'left', 'right', 'up', or 'down'. Pass in the according html into the ```swipe-btn```slot.
 
 ```html
 
-{#each cards as card (card.id)}
-  <SwipeCard
-    on:swipe={() => console.log('swipe')}
-    on:swipe_right={() => console.log('right')}
-    on:swipe_left={() => console.log('left')}
-    on:swipe_up={() => console.log('up')}
-    on:swipe_down={() => console.log('down')}
-    on:move_left={() => console.log('move left')}
-    on:move_right={() => console.log('move right')}
-    on:move_up={() => console.log('move up')}
-    on:move_down={() => console.log('move down')}
-  />
+<script lang="ts">
+	import { SwipeDeck } from '$lib/index';
+	import type { SvelteComponent } from 'svelte';
+
+	export let data;
+	const cards = data.products;
+
+	let deck: SvelteComponent;
+	let currentIndex = 0;
+
+	function handleSwipe(index: number, direction: string) {
+		deck.swipeCard(index, direction);
+		currentIndex++;
+	}
+</script>
+<SwipeDeck
+		bind:this={deck}
+		{cards}
+		let:card
+	>
+		<p>{card.id}</p>
+		<p>{card.title}</p>
+		<svelte:fragment slot="swipe-btn">
+			<button on:click={() => handleSwipe(currentIndex, 'left')}>Swipe Left</button>
+			<button on:click={() => handleSwipe(currentIndex, 'right')}>Swipe Right</button>
+			<button on:click={() => handleSwipe(currentIndex, 'up')}>Swipe Up</button>
+			<button on:click={() => handleSwipe(currentIndex, 'down')}>Swipe Down</button>
+		</svelte:fragment>
+	</SwipeDeck>
 ```
 
 ## Props
 SwipeDeck components accept the following props:
-| Prop | Description |
-| --- | --- |
-| `class` | pass in your CSS classes to further style the deck |
+| Prop | Description | type | default |
+| --- | --- | --- | --- |
+| `cards` | the array of the cards in the deck | any[] (required) | - |
+| `deckClass` | pass in your CSS classes to further style the deck-wrapper element |
+| `class` | pass in your CSS classes to further style each card element |
+| `threshold` | the minimum distance (percentage) the card must be swiped to trigger a swipe event | number between 1 and 100 | 50 |
+| `transitionDuration` | the duration of the transition duration after a swipe in milliseconds. affects opacity and transform | number | 150 |
 
 SwipeCard components accept the following props:
 | Prop | Description | type | default |
 | --- | --- | --- | --- |
-| `index` | the index of the card in the deck | number (required) | - |
-| `class` | pass in your CSS classes to further style the card | string | '' |
 | `allowedDirections` | allow the card to be swiped in specific directions. | 'all', 'horizontal', 'vertical' | 'all' |
 | `threshold` | the minimum distance (percentage) the card must be swiped to trigger a swipe event | number between 1 and 100 | 50 |
 | `transitionDuration` | the duration of the transition duration after a swipe in milliseconds. affects opacity and transform | number | 150 |

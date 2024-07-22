@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Directions, IntRange } from './types';
+	import type { AllowedDirections, Directions, IntRange } from './types';
 	import { onMount } from 'svelte';
 	import { SwipeCard } from '$lib/index';
 
@@ -7,6 +7,7 @@
 	export let deckClass: string = '';
 	export let threshold: IntRange<0, 101> = 50;
 	export let transitionDuration: number = 150;
+	export let allowedDirections: AllowedDirections = 'all';
 	let cardComponents: any[] = [];
 
 	let deckElem: HTMLUListElement;
@@ -40,6 +41,7 @@
 			{index}
 			{threshold}
 			{transitionDuration}
+			{allowedDirections}
 			class={$$props.class}
 			bind:this={cardComponents[index]}
 			on:move_down
