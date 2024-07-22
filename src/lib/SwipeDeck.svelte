@@ -11,6 +11,7 @@
 
 	let cardComponents: any[] = [];
 	let currentIndex = 0;
+	let deckElemBlockPaddingAndMargin = 0;
 
 	let deckElem: HTMLUListElement;
 	let maxCardHeight = 0;
@@ -29,6 +30,12 @@
 
 	onMount(() => {
 		setMaxHeight();
+		const deckElemStyles = window.getComputedStyle(deckElem);
+		deckElemBlockPaddingAndMargin =
+			parseFloat(deckElemStyles.paddingTop) +
+			parseFloat(deckElemStyles.paddingBottom) +
+			parseFloat(deckElemStyles.marginTop) +
+			parseFloat(deckElemStyles.marginBottom);
 	});
 </script>
 
@@ -37,7 +44,7 @@
 <ul
 	class={deckClass}
 	bind:this={deckElem}
-	style:min-height="{deckElem?.clientHeight + maxCardHeight}px"
+	style:min-height="{deckElemBlockPaddingAndMargin + maxCardHeight}px"
 >
 	{#each cards as card, index}
 		<SwipeCard
