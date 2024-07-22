@@ -1,8 +1,8 @@
 <script>import { getCurrentPos, setPos } from "./utils";
 import { createEventDispatcher } from "svelte";
 export let allowedDirections = "all";
-export let threshold = 50;
-export let transitionDuration = 150;
+export let threshold;
+export let transitionDuration;
 export let index;
 let cardElem;
 const dispatch = createEventDispatcher();
@@ -33,16 +33,16 @@ const handleMouseMove = (event) => {
   currentPos.x = setPos(x - startPos.x, y, allowedDirections).x;
   currentPos.y = setPos(x, y - startPos.y, allowedDirections).y;
   if (currentPos.x > 0) {
-    dispatch("move_right");
+    dispatch("move_right", { index });
   }
   if (currentPos.x < 0) {
-    dispatch("move_left");
+    dispatch("move_left", { index });
   }
   if (currentPos.y > 0) {
-    dispatch("move_down");
+    dispatch("move_down", { index });
   }
   if (currentPos.y < 0) {
-    dispatch("move_up");
+    dispatch("move_up", { index });
   }
 };
 const handleMouseUp = (event) => {
@@ -54,8 +54,8 @@ const handleMouseUp = (event) => {
     if (Math.abs(currentPos.x) > threshold / 100 * target.clientWidth) {
       isSwiped = true;
       currentPos.x = currentPos.x > 0 ? target.clientWidth * 1.5 : -target.clientWidth * 1.5;
-      dispatch("swipe_" + (currentPos.x > 0 ? "right" : "left"));
-      dispatch("swipe");
+      dispatch("swipe_" + (currentPos.x > 0 ? "right" : "left"), { index });
+      dispatch("swipe", { index });
     } else {
       resetPositions();
     }
@@ -63,8 +63,8 @@ const handleMouseUp = (event) => {
     if (Math.abs(currentPos.y) > threshold / 100 * target.clientHeight) {
       isSwiped = true;
       currentPos.y = currentPos.y > 0 ? target.clientHeight * 1.5 : -target.clientHeight * 1.5;
-      dispatch("swipe_" + (currentPos.y > 0 ? "down" : "up"));
-      dispatch("swipe");
+      dispatch("swipe_" + (currentPos.y > 0 ? "down" : "up"), { index });
+      dispatch("swipe", { index });
     } else {
       resetPositions();
     }
@@ -86,10 +86,37 @@ const resetPositions = () => {
   currentPos.x = 0;
   currentPos.y = 0;
 };
+export const swipe = (direction) => {
+  const targetWidth = cardElem.clientWidth;
+  const targetHeight = cardElem.clientHeight;
+  isSwiped = true;
+  switch (direction) {
+    case "left":
+      currentPos.x = -targetWidth * 1.5;
+      dispatch("swipe_left", { index });
+      break;
+    case "right":
+      currentPos.x = targetWidth * 1.5;
+      dispatch("swipe_right", { index });
+      break;
+    case "up":
+      currentPos.y = -targetHeight * 1.5;
+      dispatch("swipe_up", { index });
+      break;
+    case "down":
+      currentPos.y = targetHeight * 1.5;
+      dispatch("swipe_down", { index });
+      break;
+  }
+  dispatch("swipe", { index });
+  setTimeout(() => {
+    cardElem.remove();
+  }, transitionDuration);
+};
 </script>
 
 <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
-<div
+<li
 	bind:this={cardElem}
 	class="swipe-card"
 	class:transition={isSwiped}
@@ -103,19 +130,29 @@ const resetPositions = () => {
 	on:mousedown={handleMouseDown}
 	on:touchstart={handleMouseDown}
 	role="listitem"
+	data-swipe-card={index}
 >
 	<div class={$$props.class}>
 		<slot />
 	</div>
-</div>
+</li>
 
 <style>
+	*,
+	*::before,
+	*::after {
+		box-sizing: border-box;
+		margin: 0;
+	}
+
 	.swipe-card {
 		position: absolute;
 		left: 0;
 		right: 0;
 		cursor: grab;
 		opacity: 1;
+		list-style: none;
+		padding: 0;
 	}
 
 	.transition {
