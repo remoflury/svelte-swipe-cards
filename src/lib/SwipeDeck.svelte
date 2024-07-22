@@ -4,16 +4,17 @@
 	import { SwipeCard } from '$lib/index';
 
 	export let cards: any[];
+	export let deckClass: string = '';
 	export let threshold: IntRange<0, 101> = 50;
 	export let transitionDuration: number = 150;
 	let cardComponents: any[] = [];
 
 	let deckElem: HTMLUListElement;
-	let maxHeight = 0;
+	let maxCardHeight = 0;
 
 	const setMaxHeight = () => {
 		const cards = deckElem.querySelectorAll('[data-swipe-card]');
-		maxHeight = Math.max(...Array.from(cards).map((card) => card.clientHeight)) ?? 0;
+		maxCardHeight = Math.max(...Array.from(cards).map((card) => card.clientHeight)) ?? 0;
 	};
 
 	export const swipeCard = (index: number, direction: Directions) => {
@@ -28,13 +29,18 @@
 </script>
 
 <svelte:window on:resize={setMaxHeight} />
-<ul class={$$props.class} bind:this={deckElem} style:height="{maxHeight}px">
+
+<ul
+	class={deckClass}
+	bind:this={deckElem}
+	style:min-height="{deckElem?.clientHeight + maxCardHeight}px"
+>
 	{#each cards as card, index}
 		<SwipeCard
-			class="card"
 			{index}
 			{threshold}
 			{transitionDuration}
+			class={$$props.class}
 			bind:this={cardComponents[index]}
 			on:move_down
 			on:move_left

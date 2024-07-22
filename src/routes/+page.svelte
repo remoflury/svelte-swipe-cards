@@ -17,6 +17,8 @@
 <section class="section">
 	<h1>Svelte Swipe Card</h1>
 	<SwipeDeck
+		deckClass="deck"
+		class="card"
 		bind:this={deck}
 		{cards}
 		let:card
@@ -35,10 +37,10 @@
 		<p>{card.id}</p>
 		<p>{card.title}</p>
 		<svelte:fragment slot="swipe-btn">
-			<button on:click={() => handleSwipe(currentIndex, 'right')}>Swipe Right</button>
 			<button on:click={() => handleSwipe(currentIndex, 'left')}>Swipe Left</button>
-			<button on:click={() => handleSwipe(currentIndex, 'up')}>Swipe up</button>
-			<button on:click={() => handleSwipe(currentIndex, 'down')}>Swipe down</button>
+			<button on:click={() => handleSwipe(currentIndex, 'right')}>Swipe Right</button>
+			<button on:click={() => handleSwipe(currentIndex, 'up')}>Swipe Up</button>
+			<button on:click={() => handleSwipe(currentIndex, 'down')}>Swipe Down</button>
 		</svelte:fragment>
 	</SwipeDeck>
 </section>
@@ -52,6 +54,10 @@
 	.section {
 		padding-block: 20px;
 		margin-inline: 1rem;
+	}
+
+	:global(.deck) {
+		padding-top: 1rem !important;
 	}
 
 	:global(.card) {
