@@ -6,12 +6,6 @@
 	const cards = data.products;
 
 	let deck: SvelteComponent;
-	let currentIndex = 0;
-
-	function handleSwipe(index: number, direction: string) {
-		deck.swipeCard(index, direction);
-		currentIndex++;
-	}
 </script>
 
 <section class="section">
@@ -44,10 +38,10 @@
 		<p>{card.id}</p>
 		<p>{card.title}</p>
 		<svelte:fragment slot="swipe-btn">
-			<button on:click={() => handleSwipe(currentIndex, 'left')}>Swipe Left</button>
-			<button on:click={() => handleSwipe(currentIndex, 'right')}>Swipe Right</button>
-			<button on:click={() => handleSwipe(currentIndex, 'up')}>Swipe Up</button>
-			<button on:click={() => handleSwipe(currentIndex, 'down')}>Swipe Down</button>
+			<button on:click={() => deck.swipeCard('left')}>Swipe Left</button>
+			<button on:click={() => deck.swipeCard('right')}>Swipe Right</button>
+			<button on:click={() => deck.swipeCard('up')}>Swipe Up</button>
+			<button on:click={() => deck.swipeCard('down')}>Swipe Down</button>
 		</svelte:fragment>
 	</SwipeDeck>
 </section>
