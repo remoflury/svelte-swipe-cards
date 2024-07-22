@@ -131,13 +131,8 @@ SwipeDeck components accept the following props:
 | `class` | pass in your CSS classes to further style each card element |
 | `threshold` | the minimum distance (percentage) the card must be swiped to trigger a swipe event | number between 1 and 100 | 50 |
 | `transitionDuration` | the duration of the transition duration after a swipe in milliseconds. affects opacity and transform | number | 150 |
+| `allowedDirections` | allow the cards to be swiped only in specific directions. | 'all', 'horizontal', 'vertical' | 'all' |
 
-SwipeCard components accept the following props:
-| Prop | Description | type | default |
-| --- | --- | --- | --- |
-| `allowedDirections` | allow the card to be swiped in specific directions. | 'all', 'horizontal', 'vertical' | 'all' |
-| `threshold` | the minimum distance (percentage) the card must be swiped to trigger a swipe event | number between 1 and 100 | 50 |
-| `transitionDuration` | the duration of the transition duration after a swipe in milliseconds. affects opacity and transform | number | 150 |
 
 ### Example
 ```html
