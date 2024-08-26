@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { browser } from '$app/environment';
 	import type { AllowedDirections, Directions, IntRange } from './types';
 	import { getCurrentPos, setPos } from './utils';
 	import { createEventDispatcher } from 'svelte';
@@ -35,9 +36,15 @@
 
 		// Add event listener for mouse move and mouse up, aswell as touch move and touch end
 		window.addEventListener('mousemove', handleMouseMove);
-		window.addEventListener('touchmove', handleMouseMove);
+		window.addEventListener('touchmove', (e) => {
+			handleMouseMove(e);
+			document.documentElement.classList.add('html--prevent-pull-refresh');
+		});
 		window.addEventListener('mouseup', handleMouseUp);
-		window.addEventListener('touchend', handleMouseUp);
+		window.addEventListener('touchend', (e) => {
+			handleMouseUp(e);
+			document.documentElement.classList.remove('html--prevent-pull-refresh');
+		});
 	};
 
 	const handleMouseMove = (event: MouseEvent | TouchEvent) => {
@@ -195,5 +202,10 @@
 	.transition {
 		opacity: 0;
 		transition: all var(--transition-duration) ease;
+	}
+
+	:global(.html--prevent-pull-refresh) {
+		overflow: hidden;
+		overscroll-behavior: none;
 	}
 </style>
