@@ -1,11 +1,10 @@
 <script lang="ts">
 	import { SwipeDeck } from '$lib/index';
-	import type { SvelteComponent } from 'svelte';
 
 	export let data;
 	const cards = data.products;
 
-	let deck: SvelteComponent;
+	let deck: SwipeDeck;
 </script>
 
 <section class="section">

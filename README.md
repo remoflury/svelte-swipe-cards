@@ -1,5 +1,5 @@
 # Svelte Swipe Cards
-[Svelte Swipe Cards](https://github.com/remoflury/svelte-swipe-cards) is a Svelte component library that allows you to create a Tinder-like swipe card interface. 
+[Svelte Swipe Cards](https://github.com/remoflury/svelte-swipe-cards) is a Svelte component library that allows you to create a Tinder-like swipe card interface. It is completely customizable to your needs.
 
 ## Demo
 [Demo](https://svelte.dev/repl/ecba44b882604daaad887605569b4085)
@@ -15,7 +15,7 @@ Install the package via npm:
 
 
 ## Usage
-In your HTML, import SwipeDeck as a wrapper for your cards. TInstantiate the each card with the let:card directive to access the card object in the slot.
+In your HTML, import SwipeDeck as a wrapper for your cards. Instantiate the each card with the let:card directive to access the card object in the slot.
 
 ```html
 <script lang="ts">
@@ -90,15 +90,14 @@ Moreover, as soon as the card is swiped in a specific direction (relative to the
 You can also swipe cards programatically by calling the swipe method on the SwipeDeck component. The method accepts the index of the card to swipe and the direction to swipe the card. The direction can be 'left', 'right', 'up', or 'down'. Pass in the according html into the ```swipe-btn```slot.
 
 ```html
-
+<-- +page.svelte -->
 <script lang="ts">
-	import { SwipeDeck } from '$lib/index';
-	import type { SvelteComponent } from 'svelte';
+	import { SwipeDeck } from 'svelte-swipe-cards';
 
 	export let data;
 	const cards = data.products;
 
-	let deck: SvelteComponent;
+	let deck: SwipeDeck;
 </script>
 <SwipeDeck
 	bind:this={deck}
