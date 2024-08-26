@@ -1,5 +1,4 @@
-<script>import { browser } from "$app/environment";
-import { getCurrentPos, setPos } from "./utils";
+<script>import { getCurrentPos, setPos } from "./utils";
 import { createEventDispatcher } from "svelte";
 export let allowedDirections = "all";
 export let threshold;
