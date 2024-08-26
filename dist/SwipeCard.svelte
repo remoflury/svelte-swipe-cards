@@ -1,4 +1,5 @@
-<script>import { getCurrentPos, setPos } from "./utils";
+<script>import { browser } from "$app/environment";
+import { getCurrentPos, setPos } from "./utils";
 import { createEventDispatcher } from "svelte";
 export let allowedDirections = "all";
 export let threshold;
@@ -22,9 +23,15 @@ const handleMouseDown = (event) => {
   startPos.x = setPos(x, y, allowedDirections).x;
   startPos.y = setPos(x, y, allowedDirections).y;
   window.addEventListener("mousemove", handleMouseMove);
-  window.addEventListener("touchmove", handleMouseMove);
+  window.addEventListener("touchmove", (e) => {
+    handleMouseMove(e);
+    document.documentElement.classList.add("html--prevent-pull-refresh");
+  });
   window.addEventListener("mouseup", handleMouseUp);
-  window.addEventListener("touchend", handleMouseUp);
+  window.addEventListener("touchend", (e) => {
+    handleMouseUp(e);
+    document.documentElement.classList.remove("html--prevent-pull-refresh");
+  });
 };
 const handleMouseMove = (event) => {
   if (!isDragging)
@@ -158,5 +165,10 @@ export const swipe = (direction) => {
 	.transition {
 		opacity: 0;
 		transition: all var(--transition-duration) ease;
+	}
+
+	:global(.html--prevent-pull-refresh) {
+		overflow: hidden;
+		overscroll-behavior: none;
 	}
 </style>

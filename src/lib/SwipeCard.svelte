@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { browser } from '$app/environment';
 	import type { AllowedDirections, Directions, IntRange } from './types';
 	import { getCurrentPos, setPos } from './utils';
 	import { createEventDispatcher } from 'svelte';
