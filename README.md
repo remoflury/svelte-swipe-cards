@@ -19,7 +19,7 @@ In your HTML, import SwipeDeck as a wrapper for your cards. Instantiate the each
 
 ```html
 <script lang="ts">
-  import { SwipeDeck, SwipeCard } from 'svelte-swipe-cards';
+  import { SwipeDeck } from 'svelte-swipe-cards';
 
   let cards = [
     { id: 1, text: 'Card 1' },
